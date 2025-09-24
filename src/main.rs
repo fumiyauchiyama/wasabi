@@ -141,7 +141,7 @@ fn efi_main(_image_handle: EfiHandle, efi_system_table: &EfiSystemTable) {
     for i in 0..4 {
         writeln!(w, "i = {i}").unwrap();
     }
-    
+
     // println!("Hello, world!");
     loop {
         hlt()
@@ -296,7 +296,7 @@ fn lookup_font(c: char) -> Option<[[char; 8]; 16]> {
     const FONT_SOURCE: &str = include_str!("./font.txt");
     if let Ok(c) = u8::try_from(c) {
         let mut fi = FONT_SOURCE.split('\n');
-            while let Some(line) = fi.next() {
+        while let Some(line) = fi.next() {
             if let Some(line) = line.strip_prefix("0x") {
                 if let Ok(idx) = u8::from_str_radix(line, 16) {
                     if idx != c {
@@ -307,10 +307,10 @@ fn lookup_font(c: char) -> Option<[[char; 8]; 16]> {
                         for (x, c) in line.chars().enumerate() {
                             if let Some(e) = font[y].get_mut(x) {
                                 *e = c;
-                            } 
+                            }
                         }
                     }
-                    return Some(font)
+                    return Some(font);
                 }
             }
         }
@@ -326,7 +326,7 @@ fn draw_font_fg<T: Bitmap>(buf: &mut T, x: i64, y: i64, color: u32, c: char) {
                     '*' => color,
                     _ => continue,
                 };
-                let _= draw_point(buf, color, x + dx as i64, y + dy as i64);
+                let _ = draw_point(buf, color, x + dx as i64, y + dy as i64);
             }
         }
     }
@@ -346,7 +346,7 @@ struct VramTextWriter<'a> {
 
 impl<'a> VramTextWriter<'a> {
     fn new(vram: &'a mut VramBufferInfo) -> Self {
-        Self{
+        Self {
             vram,
             cursor_x: 0,
             cursor_y: 0,
